@@ -17,11 +17,14 @@ export default NextAuth({
       async authorize(credentials) {
         // Replace this with your own login API call
         const response = await fetch(
-          process.env.BACKEND_URL || "http://localhost:5000/auth/login",
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login` || "http://localhost:5000/auth/login",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(credentials),
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+            }),
           }
         );
 
@@ -41,7 +44,7 @@ export default NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }:any) {
       if (user) {
         token.id = user.id;
         token.accessToken = user.accessToken;
