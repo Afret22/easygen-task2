@@ -17,7 +17,7 @@ export default NextAuth({
       async authorize(credentials) {
         // Replace this with your own login API call
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login` || "http://localhost:5000/auth/login",
+           "http://localhost:5000/auth/login",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -26,7 +26,9 @@ export default NextAuth({
               password: credentials?.password,
             }),
           }
-        );
+        );  
+
+        console.log({response})
 
         const user = await response.json();
 

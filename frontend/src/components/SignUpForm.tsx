@@ -58,7 +58,8 @@ export default function SignUpForm() {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsSubmitting(true);
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup` || "http://localhost:5000/auth/signup", {
+   
+    fetch("http://localhost:5000/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
